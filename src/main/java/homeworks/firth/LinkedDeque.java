@@ -4,7 +4,6 @@ import homeworks.third.deque.Deque;
 
 public class LinkedDeque<E> implements Deque {
 
-
     public final TwoSideLinkedListImpl<E> data;
 
     public LinkedDeque() {
