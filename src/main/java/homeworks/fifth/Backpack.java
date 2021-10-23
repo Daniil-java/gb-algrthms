@@ -1,17 +1,12 @@
 package homeworks.fifth;
 
-import homeworks.firth.LinkedList;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.Stack;
 
 public class Backpack {
 
     public static final int BACKPACK_W = 5;
-//    static CachedLinkedHashSet<Thing> set = new CachedLinkedHashSet<>();
     static Set<Thing> set = new LinkedHashSet<>();
-    static Thing summ = new Thing("", 0, 0);
 
     public static Thing[] things = {
             new Thing("girya", 5, 50),
@@ -23,25 +18,28 @@ public class Backpack {
             new Thing("pen5", 4, 100),
             new Thing("pen6", 1, 100),
             new Thing("watch", 3, 100),
-
             new Thing("notebook", 3, 150)
     };
 
     public static void main(String[] args) {
 
-        System.out.println(toname(things.length-1, BACKPACK_W));
+        int cost = findBestCost(things.length-1, BACKPACK_W);
+
+        System.out.println("Лучшая стоимость: " + cost);
+        System.out.println("Лучший набор вещей: " + findBestThings(cost).toString());
+
     }
 
-    public static int toname(int size, int weight) {
+    public static int findBestCost(int size, int weight) {
         if (size < 0) {
             return 0;
         }
         if (things[size].getWeight() > weight) {
-            return toname(size-1, weight);
+            return findBestCost(size-1, weight);
         }
         else {
-            int a = toname(size-1, weight);
-            int b = toname(size-1, weight - things[size].getWeight()) + things[size].getPrice();
+            int a = findBestCost(size-1, weight);
+            int b = findBestCost(size-1, weight - things[size].getWeight()) + things[size].getPrice();
             if (a >= b) {
                 return a;
             } else {
@@ -49,6 +47,25 @@ public class Backpack {
                 return b;
             }
         }
+    }
+    
+    public static StringBuilder findBestThings(int cost) {  //Возвращает строку с наилучшей комбинацией вещей
+        Thing[] things_temp = new Thing[set.size()];
+        things_temp = set.toArray(things_temp);
+        int result = 0;
+        int i = 0;
+        StringBuilder sb = new StringBuilder("[");
+        while (result < cost) {
+            sb.append(things_temp[things_temp.length - 1 - i]);
+            result += things_temp[things_temp.length - 1 - i].getPrice();
+            i++;
+            if (result < cost) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb;
+        
     }
 }
 

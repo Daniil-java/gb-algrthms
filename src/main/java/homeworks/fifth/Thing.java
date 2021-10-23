@@ -35,4 +35,8 @@ public class Thing {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
