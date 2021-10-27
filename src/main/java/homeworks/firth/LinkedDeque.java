@@ -12,14 +12,12 @@ public class LinkedDeque<E> implements Deque {
 
     @Override
     public boolean insertLeft(Object value) {
-        data.beforeLast = data.last;
         data.insertFirst((E) value);
         return true;
     }
 
     @Override
     public boolean insertRight(Object value) {
-        data.beforeLast = data.last;
         data.insertLast((E) value);
         return true;
     }
@@ -31,7 +29,7 @@ public class LinkedDeque<E> implements Deque {
 
     @Override
     public E removeRight() {
-        data.last = data.beforeLast;
+        data.remove(data.last.item);
         return (E) data.last;
     }
 

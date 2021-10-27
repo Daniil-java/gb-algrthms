@@ -32,7 +32,6 @@ public class TestMain4 {
         linkedDeque.removeLeft();
 
         linkedDeque.display();
-        linkedDeque.();
         linkedDeque.removeRight();
         linkedDeque.removeRight();
 
